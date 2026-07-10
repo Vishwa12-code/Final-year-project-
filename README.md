@@ -1,66 +1,189 @@
-Privacy-Preserving Machine Unlearning System (SISA Framework)
-A complete, production-level Full-Stack AI System demonstrating the SISA (Sharded, Isolated, Sliced, Aggregated) framework for efficient Machine Unlearning.
+# Privacy-Preserving Machine Unlearning System using SISA Framework
 
+A Machine Learning-based web application that implements the **SISA (Sharded, Isolated, Sliced, and Aggregated)** framework to support **privacy-preserving machine unlearning**. The system enables users to request deletion of their data from trained machine learning models without retraining the entire model, reducing computation time while maintaining prediction accuracy.
 
-🚀 Features
-Advanced SISA Engine: Data is distributed geometrically across isolated shards. Unlearning a user's data only requires retraining the specific shard containing that data, dramatically reducing computational overhead and saving time.
-REST API (Flask): High-performance backend routing, background threading for asynchronous retraining, and real-time MongoDB integration.
-Dynamic React Dashboard: A cybersecurity-styled, glassmorphism UI built with Vite, React, Tailwind CSS, ShadCN principles, and Framer Motion.
-Real-time Analytics: Built-in metrics engine to calculate and visualize unlearning time savings (SISA vs Full Retrain).
+---
 
-/project (Current Directory)
-│
-├── backend/                  # Flask + Scikit-Learn API
-│   ├── app.py                # Main orchestrator & API Endpoints
-│   ├── sisa_engine.py        # Core SISA Algorithm Implementation
-│   ├── requirements.txt      # Python dependencies
-│   └── models/               # Auto-generated Shard Models
-│
-├── frontend/                 # Vite + React Dashboard
-│   ├── package.json          # Node dependencies
-│   ├── vite.config.js        # Vite & API Proxy
-│   └── src/                  # React Source Code (Components, UI)
-│
-└── data/                     # Data assets
-    └── sample_dataset.csv    # Initial load data
+## Project Overview
 
-    🛠️ Prerequisites & Setup
-1. Database Requirement
-This system uses MongoDB to manage data shards, metrics, and activity logs.
+Traditional machine learning models require complete retraining when user data needs to be removed. This project solves that problem using the **SISA Framework**, where data is divided into independent shards and only the affected shard is retrained after a deletion request.
 
-You must have MongoDB installed and running locally on the default port: mongodb://localhost:27017/
-2. Backend Initialization (Python)
-Ensure you have Python 3.9+ installed.
-cd backend
-python -m venv venv
+The application also provides sentiment prediction, real-time dashboard monitoring, and efficient background retraining.
 
-# Windows
-venv\Scripts\activate
-# Mac/Linux
-source venv/bin/activate
+---
+
+## Features
+
+- User review submission
+- Data sharding using the SISA framework
+- Text preprocessing with TF-IDF
+- Independent model training for each shard
+- Ensemble prediction using Majority Voting
+- Machine unlearning (delete user data)
+- Background retraining
+- Real-time dashboard and performance monitoring
+
+---
+
+## Tech Stack
+
+### Frontend
+- React.js
+- Vite
+- Tailwind CSS
+- ShadCN UI
+- Recharts
+- Framer Motion
+
+### Backend
+- Flask
+- Python
+- REST API
+
+### Machine Learning
+- Scikit-learn
+- TF-IDF Vectorizer
+- SGD Classifier
+- Majority Voting
+- SISA Framework
+
+### Database
+- MongoDB
+
+---
+
+## Project Modules
+
+### 1. User Data Input
+- Collect user reviews
+- Store user information with unique IDs
+- Send data to backend using REST APIs
+
+### 2. Data Sharding
+- Divide dataset into independent shards
+- Assign records to individual shard IDs
+- Store data separately for isolation
+
+### 3. Data Preprocessing
+- Text cleaning
+- Tokenization
+- TF-IDF Vectorization
+- Feature normalization
+
+### 4. Model Training
+- Train separate ML models for each shard
+- Save individual trained models
+- Learn sentiment patterns independently
+
+### 5. Prediction & Aggregation
+- Send input to every shard model
+- Collect predictions
+- Final prediction using Majority Voting
+
+### 6. Machine Unlearning
+- Accept user deletion requests
+- Identify affected shard
+- Remove user data
+- Retrain only the affected shard
+
+### 7. Background Retraining
+- Automatic asynchronous retraining
+- No interruption to application usage
+
+### 8. Dashboard & Monitoring
+- View active shards
+- Monitor model accuracy
+- Display retraining statistics
+- Visualize performance metrics
+
+---
+
+## Workflow
+
+```text
+User Input
+      │
+      ▼
+Data Sharding
+      │
+      ▼
+Data Preprocessing
+      │
+      ▼
+Model Training
+      │
+      ▼
+Prediction & Aggregation
+      │
+      ▼
+Machine Unlearning Request
+      │
+      ▼
+Affected Shard Retraining
+      │
+      ▼
+Dashboard Monitoring
+```
+
+---
+
+## Repository Structure
+
+```
+├── frontend/
+├── backend/
+├── models/
+├── dataset/
+├── api/
+├── screenshots/
+├── README.md
+└── requirements.txt
+```
+
+---
+
+## Installation
+
+```bash
+git clone https://github.com/yourusername/project-name.git
+
+cd project-name
 
 pip install -r requirements.txt
+```
 
-# Run the Flask API server
+Run Backend
+
+```bash
 python app.py
-The server will start on http://localhost:5000.
+```
 
-3. Frontend Initialization (Node.js)
-Ensure you have Node.js (v18+) and npm installed.
-cd frontend
+Run Frontend
 
-# Install all Vite, React, Tailwind, and Recharts dependencies
+```bash
 npm install
-
-# Start the Vite development server
 npm run dev
-The frontend dashboard will be available at http://localhost:5173. It will automatically proxy API requests to your Flask backend.
+```
 
-🧪 How to Demo the System
-Ingest Data: Open the dashboard and start sending random data into the system through the "Ingest Data" panel. Watch the "Active Shards" status update as models are asynchronously retrained. (You can also script a loop to push data from data/sample_dataset.csv).
-Predict: Use the "Live Ensemble Prediction" panel to see how all K shards vote on a piece of text, and how the final aggregation is determined via majority vote.
-Machine Unlearning Request:
-Look at your recent Activity Logs to find a user_id that was added.
-Paste that ID into the "Unlearn Request" panel.
-Click "Execute Unlearn Protocol".
-Observe the magic: The UI will tell you exactly which isolated shard was located, securely wiped of the data, and retrained in milliseconds, and the UI will show you the exact percentage of Time Saved compared to retraining the complete dataset.
+---
+
+## Future Enhancements
+
+- Deep Learning integration
+- Cloud deployment
+- Docker support
+- Authentication and authorization
+- Real-time analytics
+
+---
+
+## Contributors
+
+- Vishwa S
+- Team Members
+
+---
+
+## License
+
+This project is developed for educational and academic purposes.
